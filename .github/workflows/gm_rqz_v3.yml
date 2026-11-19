@@ -1,0 +1,1288 @@
+<!doctype html><html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GG RQZ V3 — workflow</title>
+<style>
+*{box-sizing:border-box;margin:0}
+body{background:#000;color:#ccc;font:13px/1.4 monospace;padding:12px}
+.top{display:flex;gap:8px;margin-bottom:12px;position:sticky;top:0;background:#000;padding:8px 0}
+button{
+  padding:10px 18px;background:#222;color:#fff;border:1px solid #444;
+  font:13px monospace;cursor:pointer;border-radius:4px;
+}
+button:active{background:#333}
+.ok{color:#0f0;margin-left:8px;font-size:12px}
+pre{white-space:pre-wrap;word-break:break-all;font-size:12px;line-height:1.5}
+</style>
+</head><body>
+<div class="top">
+  <button onclick="copy()">COPIAR TUDO</button>
+  <span id="ok" class="ok"></span>
+</div>
+<pre id="code"></pre>
+<script>
+const txt = `name: GG RQZ V3
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+      - name: Criar projeto
+        run: |
+          set -e
+          mkdir -p gm/app/src/main/java/com/gengar/music gm/app/src/main/res/drawable gm/app/src/main/res/mipmap-anydpi gm/app/src/main/res/mipmap-anydpi-v26 gm/app/src/main/assets
+          cd gm
+          base64 -d > app/gm.keystore <<'EOF'
+          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
+          fzD2wMUyjEnOTg==
+          EOF
+
+          cat > settings.gradle <<'EOF'
+          pluginManagement { repositories { google(); mavenCentral(); gradlePluginPortal() } }
+          dependencyResolutionManagement { repositories { google(); mavenCentral() } }
+          rootProject.name = "GengarMusic"
+          include ':app'
+          EOF
+
+          cat > build.gradle <<'EOF'
+          plugins { id 'com.android.application' version '8.5.2' apply false }
+          EOF
+
+          cat > gradle.properties <<'EOF'
+          org.gradle.jvmargs=-Xmx2g
+          org.gradle.parallel=true
+          org.gradle.caching=true
+          EOF
+
+          cat > app/build.gradle <<'EOF'
+          plugins { id 'com.android.application' }
+          android {
+            namespace 'com.gengar.music'
+            compileSdk 34
+            defaultConfig {
+              applicationId 'com.gengar.music'
+              minSdk 24
+              targetSdk 34
+              versionCode 6
+              versionName '3.0'
+            }
+            signingConfigs {
+              debug {
+                storeFile file('gm.keystore')
+                storePassword 'android'
+                keyAlias 'androiddebugkey'
+                keyPassword 'android'
+              }
+            }
+            buildTypes {
+              debug {
+                signingConfig signingConfigs.debug
+                minifyEnabled false
+              }
+            }
+          }
+          EOF
+
+          cat > app/src/main/AndroidManifest.xml <<'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+            <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
+            <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+            <uses-permission android:name="android.permission.WAKE_LOCK"/>
+            <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+            <application
+              android:label="GG RQZ"
+              android:icon="@mipmap/ic_launcher"
+              android:usesCleartextTraffic="true"
+              android:theme="@android:style/Theme.Material.NoActionBar"
+              android:hardwareAccelerated="true">
+              <activity
+                android:name=".MainActivity"
+                android:exported="true"
+                android:windowSoftInputMode="adjustResize"
+                android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout|uiMode">
+                <intent-filter>
+                  <action android:name="android.intent.action.MAIN"/>
+                  <category android:name="android.intent.category.LAUNCHER"/>
+                </intent-filter>
+              </activity>
+              <service
+                android:name=".MusicService"
+                android:exported="false"
+                android:foregroundServiceType="mediaPlayback"/>
+            </application>
+          </manifest>
+          EOF
+
+          cat > app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml <<'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+            <background android:drawable="@drawable/ic_bg"/>
+            <foreground android:drawable="@drawable/ic_fg"/>
+          </adaptive-icon>
+          EOF
+
+          cat > app/src/main/res/mipmap-anydpi/ic_launcher.xml <<'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+            <item android:drawable="@drawable/ic_bg"/>
+            <item android:drawable="@drawable/ic_fg"/>
+          </layer-list>
+          EOF
+
+          cat > app/src/main/res/drawable/ic_bg.xml <<'EOF'
+          <vector xmlns:android="http://schemas.android.com/apk/res/android"
+            android:width="108dp" android:height="108dp"
+            android:viewportWidth="108" android:viewportHeight="108">
+            <path android:pathData="M0,0h108v108h-108z" android:fillColor="#000000"/>
+            <path android:fillColor="#C0C0C0" android:pathData="M20,20 L88,20 L88,88 L20,88 Z" android:fillAlpha="0.08"/>
+            <path android:strokeColor="#888888" android:strokeWidth="0.5" android:fillColor="#00000000"
+              android:pathData="M10,54 L98,54 M54,10 L54,98"/>
+          </vector>
+          EOF
+
+          cat > app/src/main/res/drawable/ic_fg.xml <<'EOF'
+          <vector xmlns:android="http://schemas.android.com/apk/res/android"
+            android:width="108dp" android:height="108dp"
+            android:viewportWidth="108" android:viewportHeight="108">
+            <path android:fillColor="#E8E8E8"
+              android:pathData="M54,20 L54,70 M54,70 Q44,70 44,80 Q44,90 54,90 Q64,90 64,80 Q64,70 54,70"/>
+            <path android:strokeColor="#FFFFFF" android:strokeWidth="2" android:fillColor="#00000000"
+              android:pathData="M38,30 L70,30 M42,38 L66,38"/>
+            <circle android:fillColor="#FFFFFF" android:cx="54" android:cy="80" android:r="8"/>
+          </vector>
+          EOF
+
+          cat > app/src/main/res/drawable/ic_notif.xml <<'EOF'
+          <vector xmlns:android="http://schemas.android.com/apk/res/android"
+            android:width="24dp" android:height="24dp"
+            android:viewportWidth="24" android:viewportHeight="24">
+            <path android:fillColor="#FFFFFFFF"
+              android:pathData="M12,3v10.55c-0.59,-0.34 -1.27,-0.55 -2,-0.55 -2.21,0 -4,1.79 -4,4s1.79,4 4,4 4,-1.79 4,-4V7h4V3h-6z"/>
+          </vector>
+          EOF
+
+          cat > app/src/main/res/drawable/ic_heart.xml <<'EOF'
+          <vector xmlns:android="http://schemas.android.com/apk/res/android"
+            android:width="24dp" android:height="24dp"
+            android:viewportWidth="24" android:viewportHeight="24">
+            <path android:fillColor="#FFFFFFFF"
+              android:pathData="M16.5,3c-1.74,0 -3.41,0.81 -4.5,2.09C10.91,3.81 9.24,3 7.5,3 4.42,3 2,5.42 2,8.5c0,3.78 3.4,6.86 8.55,11.54L12,21.35l1.45,-1.32C18.6,15.36 22,12.28 22,8.5 22,5.42 19.58,3 16.5,3zM12.1,18.55l-0.1,0.1 -0.1,-0.1C7.14,14.24 4,11.39 4,8.5 4,6.5 5.5,5 7.5,5c1.54,0 3.04,0.99 3.57,2.36h1.87C13.46,5.99 14.96,5 16.5,5c2,0 3.5,1.5 3.5,3.5 0,2.89 -3.14,5.74 -7.9,10.05z"/>
+          </vector>
+          EOF
+
+          cat > app/src/main/res/drawable/ic_heart_on.xml <<'EOF'
+          <vector xmlns:android="http://schemas.android.com/apk/res/android"
+            android:width="24dp" android:height="24dp"
+            android:viewportWidth="24" android:viewportHeight="24">
+            <path android:fillColor="#FFFFFFFF"
+              android:pathData="M12,21.35l-1.45,-1.32C5.4,15.36 2,12.28 2,8.5 2,5.42 4.42,3 7.5,3c1.74,0 3.41,0.81 4.5,2.09C13.09,3.81 14.76,3 16.5,3 19.58,3 22,5.42 22,8.5c0,3.78 -3.4,6.86 -8.55,11.54L12,21.35z"/>
+          </vector>
+          EOF
+
+          cat > app/src/main/res/drawable/ic_shuffle.xml <<'EOF'
+          <vector xmlns:android="http://schemas.android.com/apk/res/android"
+            android:width="24dp" android:height="24dp"
+            android:viewportWidth="24" android:viewportHeight="24">
+            <path android:fillColor="#FFFFFFFF"
+              android:pathData="M10.59,9.17L5.41,4 4,5.41l5.17,5.17 1.42,-1.41zM14.5,4l2.04,2.04L4,18.59 5.41,20 17.96,7.46 20,9.5V4h-5.5zM14.83,13.41l-1.41,1.41 3.13,3.13L14.5,20H20v-5.5l-2.04,2.04 -3.13,-3.13z"/>
+          </vector>
+          EOF
+
+          cat > app/src/main/res/drawable/ic_shuffle_on.xml <<'EOF'
+          <vector xmlns:android="http://schemas.android.com/apk/res/android"
+            android:width="24dp" android:height="24dp"
+            android:viewportWidth="24" android:viewportHeight="24">
+            <path android:fillColor="#FFFFFFFF"
+              android:pathData="M10.59,9.17L5.41,4 4,5.41l5.17,5.17 1.42,-1.41zM14.5,4l2.04,2.04L4,18.59 5.41,20 17.96,7.46 20,9.5V4h-5.5zM14.83,13.41l-1.41,1.41 3.13,3.13L14.5,20H20v-5.5l-2.04,2.04 -3.13,-3.13z"/>
+            <circle android:fillColor="#FFFFFF" android:cx="12" android:cy="20" android:r="2"/>
+          </vector>
+          EOF
+
+          # ── MainActivity.java ──────────────────────────────────────────────
+          cat > app/src/main/java/com/gengar/music/MainActivity.java <<'EOF'
+          package com.gengar.music;
+          import android.Manifest;
+          import android.app.Activity;
+          import android.content.ClipData;
+          import android.content.Context;
+          import android.content.Intent;
+          import android.content.MutableContextWrapper;
+          import android.content.SharedPreferences;
+          import android.graphics.Bitmap;
+          import android.graphics.BitmapFactory;
+          import android.graphics.Color;
+          import android.net.Uri;
+          import android.os.Build;
+          import android.os.Bundle;
+          import android.os.Handler;
+          import android.os.Looper;
+          import android.os.PowerManager;
+          import android.provider.Settings;
+          import android.util.Base64;
+          import android.view.ViewGroup;
+          import android.webkit.JavascriptInterface;
+          import android.webkit.ValueCallback;
+          import android.webkit.WebChromeClient;
+          import android.webkit.WebSettings;
+          import android.webkit.WebView;
+          import java.io.File;
+          import java.io.FileOutputStream;
+          import java.io.InputStream;
+          import java.io.RandomAccessFile;
+          import java.net.HttpURLConnection;
+          import java.net.URL;
+
+          public class MainActivity extends Activity {
+            static MainActivity inst;
+            static WebView web;
+            static MutableContextWrapper wctx;
+            static Context app;
+            static ValueCallback<Uri[]> cb;
+            static final Handler UI = new Handler(Looper.getMainLooper());
+
+            static void js(final String c) {
+              if (web == null) return;
+              UI.post(() -> web.evaluateJavascript("window.gmCmd&&gmCmd('" + c.replace("'","\\\\'") + "')", null));
+            }
+
+            @Override protected void onCreate(Bundle b) {
+              super.onCreate(b);
+              inst = this;
+              app = getApplicationContext();
+              int bg = Color.parseColor("#000000");
+              getWindow().setStatusBarColor(bg);
+              getWindow().setNavigationBarColor(bg);
+
+              if (web == null) {
+                wctx = new MutableContextWrapper(app);
+                web = new WebView(wctx);
+                web.setBackgroundColor(bg);
+                WebSettings s = web.getSettings();
+                s.setJavaScriptEnabled(true);
+                s.setDomStorageEnabled(true);
+                s.setMediaPlaybackRequiresUserGesture(false);
+                s.setCacheMode(WebSettings.LOAD_DEFAULT);
+                s.setRenderPriority(WebSettings.RenderPriority.HIGH);
+                web.setLayerType(android.view.View.LAYER_TYPE_HARDWARE, null);
+                web.addJavascriptInterface(new Bridge(), "Android");
+                web.setWebChromeClient(new WebChromeClient() {
+                  @Override public boolean onShowFileChooser(WebView w, ValueCallback<Uri[]> c2, FileChooserParams p) {
+                    MainActivity a = inst;
+                    if (a == null) return false;
+                    if (cb != null) cb.onReceiveValue(null);
+                    cb = c2;
+                    Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                    i.addCategory(Intent.CATEGORY_OPENABLE);
+                    i.setType("audio/*");
+                    i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                    try { a.startActivityForResult(i, 11); } catch (Exception e) { cb = null; return false; }
+                    return true;
+                  }
+                });
+                web.loadUrl("file:///android_asset/index.html");
+              }
+
+              wctx.setBaseContext(this);
+              if (web.getParent() != null) ((ViewGroup) web.getParent()).removeView(web);
+              setContentView(web);
+
+              if (Build.VERSION.SDK_INT >= 33)
+                requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+              else askBattery();
+            }
+
+            @Override public void onRequestPermissionsResult(int rq, String[] p, int[] r) {
+              super.onRequestPermissionsResult(rq, p, r);
+              askBattery();
+            }
+
+            void askBattery() {
+              try {
+                SharedPreferences sp = getSharedPreferences("gm", MODE_PRIVATE);
+                if (sp.getBoolean("bat", false)) return;
+                sp.edit().putBoolean("bat", true).apply();
+                PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+                if (!pm.isIgnoringBatteryOptimizations(getPackageName()))
+                  startActivity(new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+                    Uri.parse("package:" + getPackageName())));
+              } catch (Exception e) {}
+            }
+
+            @Override protected void onActivityResult(int rq, int rs, Intent d) {
+              super.onActivityResult(rq, rs, d);
+              if (rq == 11 && cb != null) {
+                Uri[] r = null;
+                if (rs == RESULT_OK && d != null) {
+                  ClipData cd = d.getClipData();
+                  if (cd != null) {
+                    r = new Uri[cd.getItemCount()];
+                    for (int i = 0; i < r.length; i++) r[i] = cd.getItemAt(i).getUri();
+                  } else if (d.getData() != null) {
+                    r = new Uri[]{d.getData()};
+                  }
+                }
+                cb.onReceiveValue(r);
+                cb = null;
+              }
+            }
+
+            @Override public void onBackPressed() { moveTaskToBack(true); }
+
+            @Override protected void onDestroy() {
+              if (web != null && web.getParent() != null) ((ViewGroup) web.getParent()).removeView(web);
+              if (wctx != null) wctx.setBaseContext(app);
+              if (inst == this) inst = null;
+              super.onDestroy();
+            }
+
+            static String esc(String s) {
+              if (s == null) return "";
+              return s.replace("\\\\","\\\\\\\\").replace("\\"","\\\\\\"").replace("\\n"," ").replace("\\r"," ");
+            }
+            static String safe(String s) { return s == null ? "" : s.replaceAll("[^A-Za-z0-9_]",""); }
+
+            static class Bridge {
+              @JavascriptInterface public void get(final String url, final String id) {
+                new Thread(() -> {
+                  String r;
+                  try { r = download(url, safe(id)); }
+                  catch (Exception e) { r = "{\\"ok\\":false,\\"err\\":\\"" + esc(e.getMessage()) + "\\"}"; }
+                  final String res = r;
+                  UI.post(() -> web.evaluateJavascript("gmDone('" + id + "'," + res + ")", null));
+                }).start();
+              }
+
+              @JavascriptInterface public String chunk(String id, int off, int len) {
+                try (RandomAccessFile f = new RandomAccessFile(new File(app.getCacheDir(), safe(id)), "r")) {
+                  f.seek(off);
+                  byte[] buf = new byte[len];
+                  int n = f.read(buf);
+                  if (n <= 0) return "";
+                  return Base64.encodeToString(buf, 0, n, Base64.NO_WRAP);
+                } catch (Exception e) { return ""; }
+              }
+
+              @JavascriptInterface public void del(String id) {
+                new File(app.getCacheDir(), safe(id)).delete();
+              }
+
+              @JavascriptInterface public void media(String title, String artist,
+                  boolean playing, int posMs, int durMs, boolean shuffle, boolean fav) {
+                MusicService.title   = title   != null ? title   : "GG RQZ";
+                MusicService.artist  = artist  != null ? artist  : "GG RQZ";
+                MusicService.playing = playing;
+                MusicService.pos     = posMs;
+                MusicService.dur     = durMs;
+                MusicService.shuffle = shuffle;
+                MusicService.fav     = fav;
+                UI.post(() -> MusicService.push(app));
+              }
+
+              @JavascriptInterface public void art(String b64) {
+                try {
+                  byte[] d = Base64.decode(b64, Base64.DEFAULT);
+                  Bitmap bm = BitmapFactory.decodeByteArray(d, 0, d.length);
+                  if (bm != null) MusicService.art = bm;
+                } catch (Exception e) {}
+              }
+            }
+
+            static String download(String u, String id) throws Exception {
+              String cur = u;
+              HttpURLConnection c = null;
+              for (int i = 0; i < 10; i++) {
+                c = (HttpURLConnection) new URL(cur).openConnection();
+                c.setInstanceFollowRedirects(false);
+                c.setConnectTimeout(20000);
+                c.setReadTimeout(60000);
+                c.setRequestProperty("User-Agent", "Mozilla/5.0 GGRqz/3.0");
+                c.setRequestProperty("Accept", "*/*");
+                int code = c.getResponseCode();
+                if (code >= 300 && code < 400) {
+                  String l = c.getHeaderField("Location");
+                  c.disconnect();
+                  if (l == null) throw new Exception("HTTP " + code);
+                  cur = new URL(new URL(cur), l).toString();
+                  continue;
+                }
+                if (code >= 400) throw new Exception("HTTP " + code);
+                break;
+              }
+              String t = c.getContentType();
+              if (t == null) t = "";
+              if (t.startsWith("text/html")) throw new Exception("Link inválido — não é áudio");
+              InputStream in = c.getInputStream();
+              File out = new File(app.getCacheDir(), id);
+              FileOutputStream fos = new FileOutputStream(out);
+              byte[] buf = new byte[65536]; // 64KB chunks para velocidade
+              int n; long size = 0;
+              while ((n = in.read(buf)) != -1) { fos.write(buf, 0, n); size += n; }
+              fos.close(); in.close();
+              return "{\\"ok\\":true,\\"size\\":" + size + ",\\"type\\":\\"" + esc(t.split(";")[0].trim()) + "\\"}";
+            }
+          }
+          EOF
+
+          # ── MusicService.java ──────────────────────────────────────────────
+          cat > app/src/main/java/com/gengar/music/MusicService.java <<'EOF'
+          package com.gengar.music;
+          import android.app.Notification;
+          import android.app.NotificationChannel;
+          import android.app.NotificationManager;
+          import android.app.PendingIntent;
+          import android.app.Service;
+          import android.content.Context;
+          import android.content.Intent;
+          import android.content.pm.ServiceInfo;
+          import android.graphics.Bitmap;
+          import android.media.MediaMetadata;
+          import android.media.session.MediaSession;
+          import android.media.session.PlaybackState;
+          import android.os.Build;
+          import android.os.Bundle;
+          import android.os.IBinder;
+          import android.os.PowerManager;
+          import android.os.SystemClock;
+
+          public class MusicService extends Service {
+            static MusicService inst;
+            static String title = "GG RQZ", artist = "GG RQZ";
+            static boolean playing, shuffle, fav;
+            static long pos, dur;
+            static Bitmap art;
+            static final int ID = 7;
+            static final String CH = "ggrqz_media";
+
+            MediaSession session;
+            NotificationManager nm;
+            PowerManager.WakeLock wl;
+            boolean fg;
+
+            static void push(Context c) {
+              if (inst == null) {
+                Intent i = new Intent(c, MusicService.class);
+                try {
+                  if (Build.VERSION.SDK_INT >= 26) c.startForegroundService(i);
+                  else c.startService(i);
+                } catch (Exception e) {}
+              } else inst.refresh();
+            }
+
+            @Override public void onCreate() {
+              super.onCreate();
+              inst = this;
+              nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+              if (Build.VERSION.SDK_INT >= 26) {
+                NotificationChannel ch = new NotificationChannel(CH, "Reprodução", NotificationManager.IMPORTANCE_LOW);
+                ch.setShowBadge(false);
+                nm.createNotificationChannel(ch);
+              }
+              session = new MediaSession(this, "GGRqz");
+              session.setCallback(new MediaSession.Callback() {
+                @Override public void onPlay()            { MainActivity.js("play"); }
+                @Override public void onPause()           { MainActivity.js("pause"); }
+                @Override public void onStop()            { MainActivity.js("pause"); }
+                @Override public void onSkipToNext()      { MainActivity.js("next"); }
+                @Override public void onSkipToPrevious()  { MainActivity.js("prev"); }
+                @Override public void onSeekTo(long p)    { MainActivity.js("seek:" + p); }
+                @Override public void onCustomAction(String a, Bundle e) { MainActivity.js(a); }
+              });
+              session.setActive(true);
+              PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+              wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ggrqz:music");
+              wl.setReferenceCounted(false);
+            }
+
+            @Override public int onStartCommand(Intent i, int f, int s) {
+              String a = i == null ? null : i.getAction();
+              if (a != null && a.startsWith("gm.")) MainActivity.js(a.substring(3));
+              else refresh();
+              return START_NOT_STICKY;
+            }
+
+            @Override public IBinder onBind(Intent i) { return null; }
+            @Override public void onTaskRemoved(Intent i) {}
+
+            @Override public void onDestroy() {
+              inst = null;
+              if (wl != null && wl.isHeld()) wl.release();
+              session.release();
+              super.onDestroy();
+            }
+
+            void refresh() {
+              updateSession();
+              Notification n = build();
+              try {
+                if (Build.VERSION.SDK_INT >= 29)
+                  startForeground(ID, n, ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK);
+                else startForeground(ID, n);
+                fg = true;
+              } catch (Exception e) { nm.notify(ID, n); }
+              if (playing) { if (!wl.isHeld()) wl.acquire(10L * 60 * 60 * 1000); }
+              else if (wl.isHeld()) wl.release();
+            }
+
+            void updateSession() {
+              MediaMetadata.Builder m = new MediaMetadata.Builder()
+                .putString(MediaMetadata.METADATA_KEY_TITLE, title)
+                .putString(MediaMetadata.METADATA_KEY_ARTIST, artist)
+                .putLong(MediaMetadata.METADATA_KEY_DURATION, dur);
+              if (art != null) {
+                m.putBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART, art);
+                m.putBitmap(MediaMetadata.METADATA_KEY_ART, art);
+              }
+              session.setMetadata(m.build());
+
+              long acts = PlaybackState.ACTION_PLAY | PlaybackState.ACTION_PAUSE
+                | PlaybackState.ACTION_PLAY_PAUSE | PlaybackState.ACTION_SKIP_TO_NEXT
+                | PlaybackState.ACTION_SKIP_TO_PREVIOUS | PlaybackState.ACTION_SEEK_TO
+                | PlaybackState.ACTION_STOP;
+
+              session.setPlaybackState(new PlaybackState.Builder()
+                .setActions(acts)
+                .setState(playing ? PlaybackState.STATE_PLAYING : PlaybackState.STATE_PAUSED,
+                  pos, playing ? 1f : 0f, SystemClock.elapsedRealtime())
+                .addCustomAction(new PlaybackState.CustomAction.Builder(
+                  "fav", "Curtir", fav ? R.drawable.ic_heart_on : R.drawable.ic_heart).build())
+                .addCustomAction(new PlaybackState.CustomAction.Builder(
+                  "shuf", "Aleatório", shuffle ? R.drawable.ic_shuffle_on : R.drawable.ic_shuffle).build())
+                .build());
+            }
+
+            PendingIntent pi(String c) {
+              Intent i = new Intent(this, MusicService.class).setAction("gm." + c);
+              return PendingIntent.getService(this, c.hashCode(), i,
+                PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+            }
+
+            Notification build() {
+              Notification.Builder b = Build.VERSION.SDK_INT >= 26
+                ? new Notification.Builder(this, CH) : new Notification.Builder(this);
+              Intent open = new Intent(this, MainActivity.class)
+                .setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+              b.setSmallIcon(R.drawable.ic_notif)
+                .setContentTitle(title)
+                .setContentText(artist)
+                .setOngoing(true)
+                .setShowWhen(false)
+                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setContentIntent(PendingIntent.getActivity(this, 0, open, PendingIntent.FLAG_IMMUTABLE))
+                .addAction(fav ? R.drawable.ic_heart_on : R.drawable.ic_heart, "Curtir", pi("fav"))
+                .addAction(android.R.drawable.ic_media_previous, "Anterior", pi("prev"))
+                .addAction(playing ? android.R.drawable.ic_media_pause : android.R.drawable.ic_media_play,
+                  playing ? "Pausar" : "Tocar", pi(playing ? "pause" : "play"))
+                .addAction(android.R.drawable.ic_media_next, "Próxima", pi("next"))
+                .addAction(shuffle ? R.drawable.ic_shuffle_on : R.drawable.ic_shuffle, "Aleatório", pi("shuf"))
+                .setStyle(new Notification.MediaStyle()
+                  .setMediaSession(session.getSessionToken())
+                  .setShowActionsInCompactView(1, 2, 3));
+              if (art != null) b.setLargeIcon(art);
+              return b.build();
+            }
+          }
+          EOF
+
+          # ── index.html — visual cyberpunk cromado ─────────────────────────
+          cat > app/src/main/assets/index.html <<'HTMLEOF'
+          <!doctype html><html lang="pt-BR"><head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+          <title>GG RQZ</title>
+          <style>
+          @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&display=swap');
+          :root{
+            --bg:#000;--chrome:#c8c8c8;--chrome2:#888;--chrome3:#444;
+            --white:#f0f0f0;--red:#ff2244;--dim:#555;--border:rgba(200,200,200,.15);
+          }
+          *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent;user-select:none}
+          body{
+            background:var(--bg);color:var(--white);
+            font:14px/1.4 'Share Tech Mono',monospace;
+            min-height:100vh;overflow-x:hidden;
+            padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);
+          }
+
+          /* scanlines overlay */
+          body::before{
+            content:'';position:fixed;inset:0;z-index:999;pointer-events:none;
+            background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.08) 2px,rgba(0,0,0,.08) 4px);
+          }
+
+          /* header */
+          .hdr{
+            position:relative;padding:16px 16px 0;
+            border-bottom:1px solid var(--border);
+          }
+          .hdr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+          .logo{
+            font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:4px;
+            background:linear-gradient(180deg,#fff 0%,#888 50%,#fff 100%);
+            -webkit-background-clip:text;background-clip:text;color:transparent;
+          }
+          .ver{font-size:10px;color:var(--dim);letter-spacing:2px}
+
+          /* player card */
+          .player{
+            margin:12px 16px;padding:16px;
+            border:1px solid var(--border);
+            background:linear-gradient(135deg,rgba(255,255,255,.04) 0%,rgba(0,0,0,0) 100%);
+            position:relative;overflow:hidden;
+          }
+          .player::before{
+            content:'';position:absolute;inset:0;
+            background:linear-gradient(135deg,rgba(200,200,200,.06) 0%,transparent 50%);
+            pointer-events:none;
+          }
+          /* corner cuts */
+          .player::after{
+            content:'';position:absolute;top:0;right:0;
+            border-style:solid;border-width:0 20px 20px 0;
+            border-color:transparent var(--bg) transparent transparent;
+          }
+
+          .now-title{
+            font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;
+            color:var(--white);margin-bottom:2px;
+            white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+          }
+          .now-artist{font-size:11px;color:var(--chrome2);letter-spacing:1px;margin-bottom:12px}
+
+          /* progress */
+          .prog-wrap{position:relative;margin-bottom:4px}
+          input[type=range]{
+            width:100%;height:2px;
+            -webkit-appearance:none;appearance:none;
+            background:var(--chrome3);outline:none;border:none;
+          }
+          input[type=range]::-webkit-slider-thumb{
+            -webkit-appearance:none;width:12px;height:12px;
+            background:var(--white);border-radius:50%;
+            box-shadow:0 0 6px rgba(255,255,255,.5);
+          }
+          .tm{display:flex;justify-content:space-between;font-size:10px;color:var(--dim);margin-bottom:10px}
+
+          /* controls */
+          .ctl{display:flex;justify-content:space-between;align-items:center}
+          button{font:inherit;color:var(--white);background:none;border:none;cursor:pointer;padding:0}
+          .ctl button{
+            font-size:18px;width:40px;height:40px;
+            display:flex;align-items:center;justify-content:center;
+            color:var(--chrome2);transition:color .15s;
+          }
+          .ctl button.on{color:var(--white)}
+          .ctl .big{
+            width:52px;height:52px;font-size:22px;
+            border:1px solid var(--chrome);color:var(--white);
+            background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.02));
+            position:relative;
+          }
+          .ctl .big::after{
+            content:'';position:absolute;top:0;right:0;
+            border-style:solid;border-width:0 8px 8px 0;
+            border-color:transparent var(--bg) transparent transparent;
+          }
+          .ctl button:active{opacity:.6}
+
+          /* nav */
+          nav{display:flex;border-bottom:1px solid var(--border);margin:0 0 12px}
+          nav button{
+            flex:1;padding:10px 4px;font-size:11px;letter-spacing:1px;
+            border-bottom:2px solid transparent;color:var(--dim);
+            border-radius:0;
+          }
+          nav button.on{color:var(--white);border-bottom-color:var(--white)}
+
+          /* main sections */
+          main{padding:0 16px 100px}
+
+          /* add button */
+          .add-btn{
+            display:block;width:100%;padding:14px;margin-bottom:12px;
+            border:1px solid var(--border);text-align:center;
+            font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;
+            color:var(--chrome);
+            background:linear-gradient(135deg,rgba(255,255,255,.04),transparent);
+            position:relative;
+          }
+          .add-btn::after{
+            content:'';position:absolute;bottom:0;right:0;
+            border-style:solid;border-width:0 10px 10px 0;
+            border-color:transparent var(--bg) transparent transparent;
+          }
+
+          /* song list */
+          ul{list-style:none}
+          li{
+            display:flex;align-items:center;gap:8px;
+            padding:10px 0;border-bottom:1px solid var(--border);
+          }
+          li.now .nm{color:var(--white)}
+          li.now::before{
+            content:'▶';font-size:10px;color:var(--red);
+            flex-shrink:0;
+          }
+          .nm{
+            flex:1;min-width:0;text-align:left;
+            overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+            color:var(--chrome2);font-size:13px;padding:4px 0;
+          }
+          .hb{color:var(--chrome3);font-size:18px;padding:4px 6px;flex-shrink:0}
+          .hb.on{color:var(--white)}
+          select{
+            background:var(--bg);color:var(--dim);
+            border:1px solid var(--border);padding:4px 6px;
+            font:11px 'Share Tech Mono',monospace;max-width:90px;
+          }
+          .rm{color:var(--dim);font-size:12px;padding:4px 8px;border:1px solid var(--border);flex-shrink:0}
+
+          /* playlist input */
+          .mk{display:flex;gap:8px;margin-bottom:12px}
+          .mk input,.mk select{
+            flex:1;min-width:0;padding:10px;
+            border:1px solid var(--border);background:transparent;
+            color:var(--white);font:13px 'Share Tech Mono',monospace;
+          }
+          .mk button,.go{
+            padding:10px 14px;
+            border:1px solid var(--chrome3);color:var(--chrome);
+            font:12px 'Bebas Neue',sans-serif;letter-spacing:2px;
+            flex-shrink:0;
+          }
+
+          /* download status */
+          .dst{font-size:11px;color:var(--chrome2);margin-bottom:8px;letter-spacing:1px}
+
+          /* search results */
+          #dres li{padding:10px 0}
+          #dres .nm{color:var(--chrome2)}
+          #dres small{color:var(--dim);font-size:11px}
+
+          /* history / fav empty */
+          .empty{color:var(--dim);font-size:12px;letter-spacing:1px;padding:16px 0}
+
+          /* playlist track row */
+          .tk{display:flex;align-items:center;gap:6px;padding:4px 0}
+          .tk .nm{font-size:12px}
+
+          /* big type watermark */
+          .watermark{
+            font-family:'Bebas Neue',sans-serif;
+            font-size:min(28vw,120px);letter-spacing:-2px;
+            color:rgba(255,255,255,.025);
+            position:fixed;bottom:-10px;right:-10px;
+            line-height:1;pointer-events:none;z-index:0;
+          }
+
+          /* glitch on title */
+          @keyframes glitch{
+            0%,100%{clip-path:inset(0 0 95% 0);transform:translate(-2px,0)}
+            20%{clip-path:inset(30% 0 50% 0);transform:translate(2px,0)}
+            40%{clip-path:inset(60% 0 20% 0);transform:translate(-1px,0)}
+            60%{clip-path:inset(10% 0 80% 0);transform:translate(1px,0)}
+            80%{clip-path:inset(80% 0 5% 0);transform:translate(0,0)}
+          }
+          .logo-g{
+            position:absolute;top:16px;left:16px;
+            font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:4px;
+            color:#fff;animation:glitch 4s infinite;pointer-events:none;opacity:.18;
+          }
+
+          /* waveform bars visual */
+          .wave{display:flex;align-items:flex-end;gap:2px;height:24px;margin-bottom:8px}
+          .wave span{
+            flex:1;background:var(--chrome3);border-radius:1px;min-height:2px;
+            transition:height .1s;
+          }
+          .wave.playing span{background:var(--chrome)}
+          </style>
+          </head><body>
+
+          <div class="watermark">RQZ</div>
+          <div class="logo-g">GG RQZ</div>
+
+          <header class="hdr">
+            <div class="hdr-top">
+              <span class="logo">GG RQZ</span>
+              <span class="ver">V3.0 // CHROME</span>
+            </div>
+          </header>
+
+          <section class="player">
+            <div class="wave" id="wv">
+              <span style="height:30%"></span><span style="height:60%"></span>
+              <span style="height:45%"></span><span style="height:80%"></span>
+              <span style="height:35%"></span><span style="height:70%"></span>
+              <span style="height:50%"></span><span style="height:90%"></span>
+              <span style="height:40%"></span><span style="height:65%"></span>
+              <span style="height:55%"></span><span style="height:75%"></span>
+              <span style="height:30%"></span><span style="height:85%"></span>
+              <span style="height:45%"></span><span style="height:60%"></span>
+            </div>
+            <div id="t" class="now-title">NENHUMA MÚSICA</div>
+            <div id="a" class="now-artist">ADICIONE MÚSICAS DO CELULAR</div>
+            <input type="range" id="p" min="0" max="1000" value="0" aria-label="Posição">
+            <div class="tm"><span id="c">0:00</span><span id="d">0:00</span></div>
+            <div class="ctl">
+              <button id="sh" aria-label="Aleatório" title="Aleatório">⇄</button>
+              <button id="pv" aria-label="Anterior">⏮</button>
+              <button id="pl" class="big" aria-label="Tocar">▶</button>
+              <button id="nx" aria-label="Próxima">⏭</button>
+              <button id="fv" aria-label="Curtir">♡</button>
+              <button id="rp" class="on" aria-label="Repetir" title="Repetir">↻</button>
+            </div>
+            <audio id="au"></audio>
+          </section>
+
+          <nav>
+            <button class="on" data-v="s">MÚSICAS</button>
+            <button data-v="l">LISTAS</button>
+            <button data-v="dw">BAIXAR</button>
+            <button data-v="hs">HIST</button>
+            <button data-v="fa" style="flex:0 0 44px">♥</button>
+          </nav>
+
+          <main id="s">
+            <label class="add-btn">
+              + ADICIONAR MÚSICAS
+              <input type="file" id="f" accept="audio/*" multiple hidden>
+            </label>
+            <ul id="sl"></ul>
+          </main>
+
+          <main id="l" hidden>
+            <div class="mk">
+              <input id="pn" placeholder="NOME DA PLAYLIST">
+              <button id="pc">CRIAR</button>
+            </div>
+            <ul id="ll"></ul>
+          </main>
+
+          <main id="dw" hidden>
+            <div class="mk"><input id="dlk" placeholder="LINK DIRETO MP3/ÁUDIO"><button id="dgo">IR</button></div>
+            <div class="mk">
+              <input id="dq" placeholder="BUSCAR MÚSICA GRÁTIS">
+              <select id="dso"><option value="a">AUDIUS</option><option value="j">JAMENDO</option></select>
+              <button id="dbs">OK</button>
+            </div>
+            <div class="mk"><input id="djk" placeholder="CHAVE JAMENDO (client_id)"></div>
+            <div id="dst" class="dst"></div>
+            <ul id="dres"></ul>
+          </main>
+
+          <main id="hs" hidden>
+            <button class="add-btn" id="hc" style="margin-bottom:12px">LIMPAR HISTÓRICO</button>
+            <ul id="hl"></ul>
+          </main>
+
+          <main id="fa" hidden>
+            <button class="add-btn" id="fpa" style="margin-bottom:12px">▶ TOCAR TODAS</button>
+            <ul id="fl2"></ul>
+          </main>
+
+          <script>
+          'use strict';
+          const \$=i=>document.getElementById(i),au=\$('au');
+          let S={songs:[],lists:[]},Q=[],qi=-1,sh=0,rp=1,db;
+          try{S=JSON.parse(localStorage.gm)}catch(e){}
+          S.hist=S.hist||[];S.fav=S.fav||[];
+          const save=()=>{try{localStorage.gm=JSON.stringify(S)}catch(e){}};
+          const esc=s=>String(s).replace(/[&<>"]/g,c=>'&#'+c.charCodeAt(0)+';');
+          const fm=s=>isFinite(s)&&s>=0?Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'):'0:00';
+
+          // IndexedDB blob storage
+          try{
+            const o=indexedDB.open('ggrqz',1);
+            o.onupgradeneeded=()=>o.result.createObjectStore('b');
+            o.onsuccess=()=>{db=o.result};
+          }catch(e){}
+
+          const BB={};
+          const put=(id,b)=>{BB[id]=b;try{const t=db.transaction('b','readwrite');t.objectStore('b').put(b,id)}catch(e){}};
+          const get=id=>BB[id]?Promise.resolve(BB[id]):new Promise(r=>{
+            try{const q=db.transaction('b').objectStore('b').get(id);q.onsuccess=()=>r(q.result);q.onerror=()=>r()}
+            catch(e){r()}
+          });
+
+          // waveform animation
+          let waveTimer=null;
+          function animWave(){
+            const bars=\$('wv').querySelectorAll('span');
+            bars.forEach(b=>{b.style.height=Math.floor(10+Math.random()*90)+'%'});
+          }
+          function startWave(){
+            \$('wv').classList.add('playing');
+            if(!waveTimer)waveTimer=setInterval(animWave,120);
+          }
+          function stopWave(){
+            \$('wv').classList.remove('playing');
+            clearInterval(waveTimer);waveTimer=null;
+          }
+
+          // media session bridge
+          const ms=()=>{
+            try{
+              const s=S.songs.find(x=>x.id==Q[qi]);
+              Android.media(
+                s?(s.t||s.n):'GG RQZ',
+                (s&&s.by)||'GG RQZ',
+                !au.paused,
+                Math.round((au.currentTime||0)*1000),
+                Math.round((isFinite(au.duration)?au.duration:0)*1000),
+                !!sh,
+                !!(s&&S.fav.includes(s.id))
+              );
+            }catch(e){}
+          };
+
+          const FV=()=>S.fav.filter(i=>S.songs.some(x=>x.id==i));
+          const tf=id=>{
+            if(id==null)return;
+            const i=S.fav.indexOf(id);
+            i<0?S.fav.push(id):S.fav.splice(i,1);
+            save();draw();ms();
+          };
+          const fav=()=>tf(Q[qi]);
+
+          // cover art
+          function sendArt(){
+            try{
+              const c=document.createElement('canvas');c.width=c.height=512;
+              const g=c.getContext('2d');
+              // black chrome gradient background
+              const gr=g.createLinearGradient(0,0,512,512);
+              gr.addColorStop(0,'#1a1a1a');gr.addColorStop(0.5,'#050505');gr.addColorStop(1,'#111');
+              g.fillStyle=gr;g.fillRect(0,0,512,512);
+              // chrome lines
+              g.strokeStyle='rgba(180,180,180,0.2)';g.lineWidth=1;
+              for(let i=0;i<512;i+=32){g.beginPath();g.moveTo(i,0);g.lineTo(i,512);g.stroke()}
+              for(let i=0;i<512;i+=32){g.beginPath();g.moveTo(0,i);g.lineTo(512,i);g.stroke()}
+              // text
+              g.fillStyle='rgba(220,220,220,0.9)';
+              g.font='bold 80px sans-serif';g.textAlign='center';
+              g.fillText('GG',256,220);
+              g.font='bold 56px sans-serif';g.fillStyle='rgba(140,140,140,0.8)';
+              g.fillText('RQZ',256,300);
+              Android.art(c.toDataURL('image/jpeg',.9).split(',')[1]);
+            }catch(e){}
+          }
+
+          window.gmCmd=c=>{
+            if(c=='play'){au.src?au.play():\$('pl').click()}
+            else if(c=='pause')au.pause();
+            else if(c=='next')step(1);
+            else if(c=='prev')step(-1);
+            else if(c=='fav')fav();
+            else if(c=='shuf')\$('sh').click();
+            else if(c.startsWith('seek:'))au.currentTime=+c.slice(5)/1000;
+          };
+
+          \$('f').onchange=e=>{
+            const files=[...e.target.files];
+            files.forEach(f=>{
+              const id=Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+              put(id,f);
+              S.songs.push({id,n:f.name.replace(/\\.[^.]+\$/,'')});
+            });
+            save();draw();
+            \$('a').textContent=files.length+' ARQUIVO'+(files.length>1?'S':'')+ ' ADICIONADO'+(files.length>1?'S':'');
+            e.target.value='';
+          };
+
+          async function play(i,q){
+            if(q)Q=q;
+            qi=i;
+            const id=Q[i],s=S.songs.find(x=>x.id==id);
+            const b=await get(id);
+            if(!s||!b){\$('a').textContent='ARQUIVO NÃO ENCONTRADO. ADICIONE DE NOVO.';return}
+            const prev=au.src;
+            if(prev&&prev.startsWith('blob:'))URL.revokeObjectURL(prev);
+            au.src=URL.createObjectURL(b);
+            au.play();
+            S.hist=[id,...S.hist.filter(x=>x!=id)].slice(0,100);
+            save();
+            \$('t').textContent=(s.n||'').toUpperCase();
+            \$('a').textContent=(s.by||'GG RQZ').toUpperCase();
+            draw();
+          }
+
+          const step=d=>{
+            if(!Q.length)return;
+            play(sh?Math.floor(Math.random()*Q.length):(qi+d+Q.length)%Q.length);
+          };
+
+          \$('pl').onclick=()=>au.src?(au.paused?au.play():au.pause()):S.songs.length&&play(0,S.songs.map(x=>x.id));
+          \$('nx').onclick=()=>step(1);
+          \$('pv').onclick=()=>step(-1);
+          \$('fv').onclick=fav;
+          \$('fpa').onclick=()=>{const v=FV();if(v.length)play(0,v)};
+          \$('sh').onclick=e=>{sh=!sh;e.currentTarget.classList.toggle('on',sh);ms()};
+          \$('rp').onclick=e=>{rp=!rp;e.currentTarget.classList.toggle('on',rp)};
+
+          au.onplay=()=>{\$('pl').textContent='⏸';startWave();ms()};
+          au.onpause=()=>{\$('pl').textContent='▶';stopWave();ms()};
+          au.onplaying=au.onloadedmetadata=au.onseeked=ms;
+          au.onended=()=>{if(qi<Q.length-1||sh||rp)step(1)};
+          au.ontimeupdate=()=>{
+            \$('c').textContent=fm(au.currentTime);
+            \$('d').textContent=fm(au.duration);
+            \$('p').value=au.duration?au.currentTime/au.duration*1000:0;
+          };
+          \$('p').oninput=e=>{if(au.duration)au.currentTime=e.target.value/1000*au.duration};
+
+          // nav tabs
+          document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
+            document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x==b));
+            ['s','l','dw','hs','fa'].forEach(v=>\$(v).hidden=b.dataset.v!=v);
+          });
+
+          \$('pc').onclick=()=>{
+            const n=\$('pn').value.trim().toUpperCase();
+            if(n){S.lists.push({n,ids:[]});\$('pn').value='';save();draw()}
+          };
+
+          document.onclick=e=>{
+            const t=e.target;
+            if(t.dataset.p!=null)play(+t.dataset.p,S.songs.map(x=>x.id));
+            if(t.dataset.fs!=null)tf(S.songs[+t.dataset.fs].id);
+            if(t.dataset.fp!=null)play(+t.dataset.fp,FV());
+            if(t.dataset.fr!=null)tf(FV()[+t.dataset.fr]);
+            if(t.dataset.r!=null){const x=RES[+t.dataset.r];x.save?dl(x.u,x.n,x.by):playUrl(x.u,x.n)}
+            if(t.dataset.pi!=null){const[j,i]=t.dataset.pi.split(',');play(+i,[...S.lists[+j].ids])}
+            if(t.dataset.rm!=null){const[j,i]=t.dataset.rm.split(',');S.lists[+j].ids.splice(+i,1);save();draw()}
+            if(t.dataset.hp!=null)play(+t.dataset.hp,S.hist.filter(i=>S.songs.some(x=>x.id==i)));
+            if(t.dataset.x!=null){
+              if(t.textContent=='APAGAR'){t.textContent='TEM CERTEZA?';setTimeout(draw,3000)}
+              else{S.lists.splice(+t.dataset.x,1);save();draw()}
+            }
+            if(t.dataset.ds!=null){
+              if(t.textContent=='✕'){t.textContent='OK?';setTimeout(draw,3000)}
+              else delSong(S.songs[+t.dataset.ds].id)
+            }
+            if(t.dataset.l!=null){const l=S.lists[+t.dataset.l];if(l.ids.length)play(0,[...l.ids])}
+          };
+
+          document.onchange=e=>{
+            const t=e.target;
+            if(t.dataset.a&&t.value!==''){
+              const l=S.lists[+t.value];
+              if(!l.ids.includes(t.dataset.a))l.ids.push(t.dataset.a);
+              save();draw();t.value='';
+            }
+          };
+
+          function draw(){
+            const cur=Q[qi];
+            const nm=id=>(S.songs.find(x=>x.id==id)||{n:'?'}).n.toUpperCase();
+            const lk=S.fav.includes(cur);
+            \$('fv').textContent=lk?'♥':'♡';
+            \$('fv').classList.toggle('on',lk);
+
+            \$('sl').innerHTML=S.songs.length
+              ?S.songs.map((s,i)=>\`<li class="\${s.id==cur?'now':''}">
+                <button class="nm" data-p="\${i}">\${esc(s.n.toUpperCase())}</button>
+                <button class="hb\${S.fav.includes(s.id)?' on':''}" data-fs="\${i}">♥</button>
+                <select data-a="\${s.id}">
+                  <option value="">＋</option>
+                  \${S.lists.map((l,j)=>\`<option value="\${j}">\${esc(l.n)}</option>\`).join('')}
+                </select>
+                <button class="rm" data-ds="\${i}">✕</button>
+              </li>\`).join('')
+              :'<li class="empty">// NENHUMA MÚSICA. TOQUE EM + ADICIONAR.</li>';
+
+            \$('ll').innerHTML=S.lists.length
+              ?S.lists.map((l,j)=>\`<li>
+                <b class="nm">\${esc(l.n)}</b>
+                <button class="go" data-l="\${j}">▶</button>
+                <button class="rm" data-x="\${j}">APAGAR</button>
+                <div style="width:100%;padding-top:6px">
+                  \${l.ids.length
+                    ?l.ids.map((id,i)=>\`<div class="tk">
+                      <button class="nm" data-pi="\${j},\${i}">\${esc(nm(id))}</button>
+                      <button class="rm" data-rm="\${j},\${i}">✕</button>
+                    </div>\`).join('')
+                    :'<span class="empty">// VAZIA</span>'}
+                </div>
+              </li>\`).join('')
+              :'<li class="empty">// CRIE SUA PRIMEIRA PLAYLIST.</li>';
+
+            const FI=FV();
+            \$('fl2').innerHTML=FI.length
+              ?FI.map((id,i)=>\`<li class="\${id==cur?'now':''}">
+                <button class="nm" data-fp="\${i}">♥ \${esc(nm(id))}</button>
+                <button class="rm" data-fr="\${i}">✕</button>
+              </li>\`).join('')
+              :'<li class="empty">// NENHUMA FAVORITA.</li>';
+
+            const H=S.hist.filter(i=>S.songs.some(x=>x.id==i));
+            \$('hl').innerHTML=H.length
+              ?H.map((id,i)=>\`<li>
+                <button class="nm" data-hp="\${i}">\${esc(nm(id))}</button>
+              </li>\`).join('')
+              :'<li class="empty">// HISTÓRICO VAZIO.</li>';
+          }
+
+          function delSong(id){
+            if(Q[qi]==id){au.pause();stopWave()}
+            S.songs=S.songs.filter(x=>x.id!=id);
+            S.fav=S.fav.filter(x=>x!=id);
+            S.lists.forEach(l=>l.ids=l.ids.filter(x=>x!=id));
+            S.hist=S.hist.filter(x=>x!=id);
+            delete BB[id];
+            try{db.transaction('b','readwrite').objectStore('b').delete(id)}catch(e){}
+            save();draw();
+          }
+
+          // download system
+          let RES=[],jid=0;
+          const pend={};
+          const st=t=>{\$('dst').textContent='// '+t.toUpperCase()};
+
+          try{\$('djk').value=localStorage.jk||''}catch(e){}
+
+          function playUrl(u,n){
+            Q=[];qi=-1;
+            au.src=u;au.play();
+            \$('t').textContent=n.toUpperCase();
+            \$('a').textContent='STREAMING ONLINE';
+            draw();
+          }
+
+          function dl(u,n,by){
+            const id='d'+(++jid)+Date.now().toString(36);
+            pend[id]={n,by};
+            st('Baixando: '+n);
+            Android.get(u,id);
+          }
+
+          window.gmDone=function(id,r){
+            const p=pend[id];if(!p)return;
+            const n=p.n;delete pend[id];
+            if(!r.ok){st('Erro: '+r.err);return}
+            st('Salvando...');
+            let off=0;const P=[];const L=524288; // 512KB chunks
+            (function nx(){
+              const s=Android.chunk(id,off,L);
+              if(s){
+                const b=atob(s),u=new Uint8Array(b.length);
+                for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);
+                P.push(u);off+=b.length;
+                if(off<r.size)return setTimeout(nx,0);
+              }
+              Android.del(id);
+              if(!off){st('Erro ao salvar');return}
+              const sid=Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+              const type=/^audio/.test(r.type)?r.type:'audio/mpeg';
+              put(sid,new Blob(P,{type}));
+              S.songs.push({id:sid,n:p.by?n+' - '+p.by:n,t:n,by:p.by||''});
+              save();draw();st('Pronto: '+n+' — aba Músicas');
+            })();
+          };
+
+          \$('dgo').onclick=()=>{
+            const u=\$('dlk').value.trim();
+            if(!/^https?:\\/\\//i.test(u)){st('Cole um link que comece com http');return}
+            let n='Música';
+            try{n=decodeURIComponent(u.split('?')[0].split('/').pop()).replace(/\\.[^.]+\$/,'')||n}catch(e){}
+            dl(u,n);
+          };
+
+          \$('dbs').onclick=async()=>{
+            const q=\$('dq').value.trim(),j=\$('djk').value.trim();
+            if(!q)return;
+            try{localStorage.jk=j}catch(e){}
+            st('Buscando...');\$('dres').innerHTML='';RES=[];
+            try{
+              let R=[];
+              if(\$('dso').value=='a'){
+                const r=await(await fetch('https://api.audius.co/v1/tracks/search?limit=20&app_name=GGRqz&query='+encodeURIComponent(q))).json();
+                R=(r.data||[]).map(t=>({n:t.title,by:t.user&&t.user.name,u:'https://api.audius.co/v1/tracks/'+t.id+'/stream?app_name=GGRqz'}));
+              }else{
+                if(!j){st('Cole sua chave client_id do Jamendo');return}
+                const r=await(await fetch('https://api.jamendo.com/v3.0/tracks/?format=json&limit=20&audiodlformat=mp32&client_id='+encodeURIComponent(j)+'&search='+encodeURIComponent(q))).json();
+                R=(r.results||[]).filter(t=>t.audiodownload_allowed&&t.audiodownload).map(t=>({n:t.name,by:t.artist_name,u:t.audiodownload,save:1}));
+              }
+              RES=R;
+              st(R.length?R.length+' resultados':'Nada encontrado');
+              \$('dres').innerHTML=R.map((t,i)=>\`<li>
+                <span class="nm">\${esc(t.n||'')} <small>\${esc(t.by||'')}</small></span>
+                <button class="go" data-r="\${i}">\${t.save?'BAIXAR':'OUVIR'}</button>
+              </li>\`).join('');
+            }catch(e){st('Erro na busca. Verifique internet/chave.')}
+          };
+
+          \$('hc').onclick=()=>{S.hist=[];save();draw()};
+
+          draw();
+          setTimeout(sendArt,600);
+          </script>
+          </body></html>
+          HTMLEOF
+
+      - name: Compilar
+        working-directory: gm
+        run: gradle assembleDebug --no-daemon --parallel
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GG-RQZ-V3
+          path: gm/app/build/outputs/apk/debug/app-debug.apk
+`;
+document.getElementById('code').textContent = txt;
+function copy(){
+  navigator.clipboard.writeText(txt).then(()=>{
+    const o=document.getElementById('ok');
+    o.textContent='✓ copiado!';
+    setTimeout(()=>o.textContent='',2000);
+  });
+}
+</script>
+</body></html>
